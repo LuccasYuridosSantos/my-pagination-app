@@ -1,0 +1,25 @@
+#root {
+  max-width: 100%;
+  height: inherit;
+  margin: 0 auto;
+  /* padding: 2rem; */
+  text-align: center;
+}
+
+
+.add-book-container {
+  display: flex;
+  gap: 10px; /* Espaçamento entre os elementos */
+  align-items: center; /* Alinhar os itens verticalmente */
+}
+
+.add-book-container input, .add-book-container button {
+  margin: 0; /* Remover margens padrão dos elementos */
+}
+
+.title {
+  display: flex;
+  text-align: center; /* Centralizar horizontalmente */
+  justify-content: center; /* Centralizar horizontalmente */
+  margin-bottom: 50px;
+}
