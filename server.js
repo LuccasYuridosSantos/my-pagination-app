@@ -11,8 +11,8 @@ const BOOKS_MAPPING = '/books';
 
 // Dados dos livros (exemplo)
 let books = [
-  { id: 1, title: 'Livro 1', author: 'Autor 1', isbn: '123456789', pages: 200, year: 2020, price: 30 },
-  { id: 2, title: 'Livro 2', author: 'Autor 2', isbn: '987654321', pages: 250, year: 2019, price: 25 },
+  { id: 1, title: 'Livro 1', author: 'Autor 1', isbn: '123456789', pages: 200, year: 2020, price: 30.0 },
+  { id: 2, title: 'Livro 2', author: 'Autor 2', isbn: '987654321', pages: 250, year: 2019, price: 25.0 },
   // Adicione mais livros conforme necessário
 ];
 

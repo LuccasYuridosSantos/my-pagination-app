@@ -10,12 +10,6 @@ function AppComponent() {
   const [totalPages, setTotalPages] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState<number | undefined>();
   const [loading, setLoading] = useState(false);
-  const [newBookTitle, setNewBookTitle] = useState('');
-  const [newBookAuthor, setNewBookAuthor] = useState('');
-  const [newBookISBN, setNewBookISBN] = useState('');
-  const [newBookPages, setNewBookPages] = useState('');
-  const [newBookYear, setNewBookYear] = useState('');
-  const [newBookPrice, setNewBookPrice] = useState('');
 
   useEffect(() => {
     fetchBooks();
@@ -24,12 +18,12 @@ function AppComponent() {
   const fetchBooks = async () => {
     setLoading(true);
     getBooks(currentPage, itemsPerPage)
-            .then(data => {
-                setBooks(data);
-                setTotalPages(data.totalPages);
-            })
-            .catch(error => console.error('Error fetching books:', error))
-            .finally(() => setLoading(false));
+      .then(data => {
+        setBooks(data);
+        setTotalPages(data.totalPages);
+      })
+      .catch(error => console.error('Error fetching books:', error))
+      .finally(() => setLoading(false));
   };
 
   const handleNextPage = () => {
@@ -58,34 +52,34 @@ function AppComponent() {
   };
 
   const handleAddBook = async () => {
+
+    const { newBookTitle, newBookAuthor, newBookISBN, newBookPages, newBookYear, newBookPrice } = extractInputValue();
+
     const newBook: Book = {
-        title: newBookTitle,
-        author: newBookAuthor,
-        isbn: newBookISBN,
-        pages: parseInt(newBookPages),
-        year: parseInt(newBookYear),
-        price: parseFloat(newBookPrice)
+      title: newBookTitle.value,
+      author: newBookAuthor.value,
+      isbn: newBookISBN.value,
+      pages: parseInt(newBookPages.value),
+      year: parseInt(newBookYear.value),
+      price: parseFloat(newBookPrice.value),
     };
+
+    console.log(newBook);
 
     await addBook(newBook);
     fetchBooks();
 
-    setNewBookTitle('');
-    setNewBookAuthor('');
-    setNewBookISBN('');
-    setNewBookPages('');
-    setNewBookYear('');
-    setNewBookPrice('');
+    clearInputs(newBookTitle, newBookAuthor, newBookISBN, newBookPages, newBookYear, newBookPrice);
 
     setCurrentPage(1);
-};
+  };
 
   const handleDeleteBook = async (id: number) => {
     deleteBook(id);
     fetchBooks();
   };
 
-  
+
 
   return (
     <div className="rootApp">
@@ -128,12 +122,12 @@ function AppComponent() {
               {books.books && books.books.length > 0 ? (
                 books.books.map(book => (
                   <tr key={book.id}>
-                    <td>{book.title}</td>
-                    <td>{book.author}</td>
-                    <td>{book.isbn}</td>
-                    <td>{book.pages}</td>
-                    <td>{book.year}</td>
-                    <td>{book.price}</td>
+                    <td>{book.title ? book.title : '-'}</td>
+                    <td>{book.author ? book.author : '-'}</td>
+                    <td>{book.isbn ? book.isbn : '-'}</td>
+                    <td>{book.pages ? book.pages : '-'}</td>
+                    <td>{book.year ? book.year : '-'}</td>
+                    <td> R$ {book.price ? book.price.toFixed(2) : '0'}</td>
                     <td>
                       <button onClick={() => handleDeleteBook(book.id ?? 0)}>Excluir</button>
                     </td>
@@ -164,3 +158,23 @@ function AppComponent() {
 }
 
 export default AppComponent;
+
+function extractInputValue() {
+  const newBookTitle = document.getElementById('newBookTitle') as HTMLInputElement;
+  const newBookAuthor = document.getElementById('newBookAuthor') as HTMLInputElement;
+  const newBookISBN = document.getElementById('newBookISBN') as HTMLInputElement;
+  const newBookPages = document.getElementById('newBookPages') as HTMLInputElement;
+  const newBookYear = document.getElementById('newBookYear') as HTMLInputElement;
+  const newBookPrice = document.getElementById('newBookPrice') as HTMLInputElement;
+  return { newBookTitle, newBookAuthor, newBookISBN, newBookPages, newBookYear, newBookPrice };
+}
+
+function clearInputs(newBookTitle: HTMLInputElement, newBookAuthor: HTMLInputElement, newBookISBN: HTMLInputElement, newBookPages: HTMLInputElement, newBookYear: HTMLInputElement, newBookPrice: HTMLInputElement) {
+  newBookTitle.value = '';
+  newBookAuthor.value = '';
+  newBookISBN.value = '';
+  newBookPages.value = '';
+  newBookYear.value = '';
+  newBookPrice.value = '';
+}
+
