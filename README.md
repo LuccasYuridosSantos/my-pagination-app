@@ -1,36 +1,41 @@
-# RUN:
-1 - Instale as Dependências 
-```bash 
-  npm install 
-```
-2 - Execute o servidor Express em um terminal:
-```bash
-node server.js
-```
-3 - Execute o react:
-```bash 
-  npm run dev
-```
+# Como Executar:
 
+1. **Instale as Dependências:**  
+   Execute o seguinte comando para instalar todas as dependências necessárias:
+   ```bash 
+   npm install 
+   ```
+
+2. **Inicie o Servidor Express:**  
+   Em um terminal, execute o servidor Express com o comando:
+   ```bash
+   node server.js
+   ```
+
+3. **Execute o React:**  
+   Para iniciar o ambiente de desenvolvimento React, utilize o comando:
+   ```bash 
+   npm run dev
+   ```
 
 # React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este modelo fornece uma configuração mínima para usar React no Vite com HMR e algumas regras ESLint.
 
-Currently, two official plugins are available:
+Atualmente, existem dois plugins oficiais disponíveis:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) usa [Babel](https://babeljs.io/) para Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) usa [SWC](https://swc.rs/) para Fast Refresh
 
-## Expanding the ESLint configuration
+## Expansão da Configuração ESLint
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+Se você estiver desenvolvendo uma aplicação de produção, recomendamos atualizar a configuração para habilitar regras de lint sensíveis ao tipo:
 
-- Configure the top-level `parserOptions` property like this:
+- Configure a propriedade `parserOptions` no nível superior desta forma:
 
 ```js
 export default {
-  // other rules...
+  // outras regras...
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
@@ -40,6 +45,6 @@ export default {
 }
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+- Substitua `plugin:@typescript-eslint/recommended` por `plugin:@typescript-eslint/recommended-type-checked` ou `plugin:@typescript-eslint/strict-type-checked`
+- Opcionalmente, adicione `plugin:@typescript-eslint/stylistic-type-checked`
+- Instale [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) e adicione `plugin:react/recommended` e `plugin:react/jsx-runtime` à lista `extends`
