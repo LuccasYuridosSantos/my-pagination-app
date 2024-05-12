@@ -60,6 +60,10 @@ function App() {
     }
   };
 
+  function handlePageClick(page: number): void {
+    setCurrentPage(page);
+  }
+
   const handleItemsPerPageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(e.target.value);
     if (!isNaN(value) && value > 0) {
@@ -86,8 +90,6 @@ function App() {
       price: parseFloat(newBookPrice.value)
     };
 
-    console.log('Adding book:', newBook);
-
     try {
       await axios.post('http://localhost:3001/books', newBook);
       fetchBooks(); // Call fetchBooks to update the book list
@@ -112,16 +114,18 @@ function App() {
     }
   };
 
+  
+
   return (
-    <div className='rootApp'>
+    <div className="rootApp">
       <div className="title">
-        <h1 >Lista de Livros</h1>
+        <h1>Lista de Livros</h1>
       </div>
-      <div>
+
+      <div className="top-section">
         <label htmlFor="itemsPerPage">Itens por Página: </label>
         <input type="number" id="itemsPerPage" min="1" onChange={handleItemsPerPageChange} />
       </div>
-
 
       <div className="add-book-container">
         <button onClick={handleAddBook}>Adicionar Livro</button>
@@ -136,28 +140,53 @@ function App() {
       {loading ? (
         <p>Loading...</p>
       ) : (
-        <div className="App">
+        <>
+          <table className="books-table">
+            <thead>
+              <tr>
+                <th>Título</th>
+                <th>Autor</th>
+                <th>ISBN</th>
+                <th>Páginas</th>
+                <th>Ano</th>
+                <th>Valor</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              {books.books && books.books.length > 0 ? (
+                books.books.map(book => (
+                  <tr key={book.id}>
+                    <td>{book.title}</td>
+                    <td>{book.author}</td>
+                    <td>{book.isbn}</td>
+                    <td>{book.pages}</td>
+                    <td>{book.year}</td>
+                    <td>{book.price}</td>
+                    <td>
+                      <button onClick={() => handleDeleteBook(book.id ?? 0)}>Excluir</button>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan={7}>Nenhum livro encontrado.</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
 
-          {books.books && books.books.length > 0 ? (
-            <ul>
-              {books.books.map(book => (
-                <li key={book.id}>
-                  <strong>Título:</strong> {book.title}, <strong>Autor:</strong> {book.author}, <strong>ISBN:</strong> {book.isbn}, <strong>Páginas:</strong> {book.pages}, <strong>Ano:</strong> {book.year}, <strong>Valor:</strong> {book.price}
-                  <button onClick={() => handleDeleteBook(book.id ?? 0)}>Excluir</button>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p>No books found.</p>
-          )}
-
-          <div>
+          <div className="pagination">
             {currentPage > 1 && <button onClick={handlePrevPage}>Página anterior</button>}
+            {books.books && books.books.length > 0 && <button onClick={() => handlePageClick(1)}>Primeira página</button>}
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
+              <button key={page} onClick={() => handlePageClick(page)}>{page}</button>
+            ))}
+            {books.books && books.books.length > 0 && <button onClick={() => handlePageClick(totalPages)}>Última página</button>}
             {currentPage < totalPages && <button onClick={handleNextPage}>Próxima página</button>}
             <br />
-            <span>Página {currentPage} de {totalPages}</span>
           </div>
-        </div>
+        </>
       )}
     </div>
   );

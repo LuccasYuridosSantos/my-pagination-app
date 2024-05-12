@@ -3,23 +3,48 @@
   height: inherit;
   margin: 0 auto;
   /* padding: 2rem; */
+}
+
+.rootApp {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   text-align: center;
 }
 
+.title {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.top-section {
+  margin-top: 20px;
+}
 
 .add-book-container {
   display: flex;
-  gap: 10px; /* Espaçamento entre os elementos */
-  align-items: center; /* Alinhar os itens verticalmente */
+  gap: 10px;
+  margin-top: 20px;
 }
 
-.add-book-container input, .add-book-container button {
-  margin: 0; /* Remover margens padrão dos elementos */
+.books-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
 }
 
-.title {
+.books-table th, .books-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.books-table th {
+  text-align: left;
+}
+
+.pagination {
   display: flex;
-  text-align: center; /* Centralizar horizontalmente */
-  justify-content: center; /* Centralizar horizontalmente */
-  margin-bottom: 50px;
+  justify-content: center;
+  margin-top: 20px;
 }

@@ -1,5 +1,5 @@
 # RUN:
-1 - Instale as dependencias 
+1 - Instale as Dependências 
 ```bash 
   npm install 
 ```
