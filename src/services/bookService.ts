@@ -2,7 +2,7 @@ import axios from 'axios';
 import Book from '../models/Book';
 import BooksResponse from '../models/BooksResponse';
 
-async function fetchBooks(currentPage: number, itemsPerPage?: number): Promise<BooksResponse> {
+async function getBooks(currentPage: number, itemsPerPage?: number): Promise<BooksResponse> {
   try {
     const perPageParam = itemsPerPage ? `&pageSize=${itemsPerPage}` : '';
     const response = await axios.get(`http://localhost:3001/books?page=${currentPage}${perPageParam}`);
@@ -31,4 +31,4 @@ async function deleteBook(id: number): Promise<void> {
   }
 }
 
-export { fetchBooks, addBook, deleteBook };
+export { getBooks, addBook, deleteBook };
