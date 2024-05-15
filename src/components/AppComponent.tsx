@@ -142,13 +142,20 @@ function AppComponent() {
           </table>
 
           <div className="pagination">
-            {currentPage > 1 && <button onClick={handlePrevPage}>Página anterior</button>}
-            {books.books && books.books.length > 0 && <button onClick={() => handlePageClick(1)}>Primeira página</button>}
-            {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
-              <button key={page} onClick={() => handlePageClick(page)}>{page}</button>
-            ))}
-            {books.books && books.books.length > 0 && <button onClick={() => handlePageClick(totalPages)}>Última página</button>}
-            {currentPage < totalPages && <button onClick={handleNextPage}>Próxima página</button>}
+            {currentPage > 5 && <button onClick={() => handlePageClick(1)}>{"<<"}</button>}
+            {currentPage > 1 && <button onClick={handlePrevPage}>{"<"}</button>}
+            {currentPage > 5 && <button>{"..."}</button>}
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => {
+              if (page === currentPage) {
+                return <button key={page} onClick={() => handlePageClick(page)} className="selected" style={{ border: '1px solid gray', backgroundColor: 'gray' }}>{page}</button>;
+              } else if (page >= currentPage - 3 && page <= currentPage + 3) {
+                return <button key={page} onClick={() => handlePageClick(page)} style={{ border: '1px solid gray' }}>{page}</button>;
+              }
+              return null;
+            })}
+            {currentPage < totalPages - 3 && <button>{"..."}</button>}
+            {currentPage < totalPages && <button onClick={handleNextPage}>{">"}</button>}
+            {currentPage < totalPages - 3 && <button onClick={() => handlePageClick(totalPages)}>{">>"}</button>}
             <br />
           </div>
         </>
