@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './AppComponent.css';
 import BooksResponse from '../models/BooksResponse';
-import Book from '../models/Book';
 import { addBook, deleteBook, getBooks } from '../services/bookService';
 
 function AppComponent() {
@@ -51,34 +50,6 @@ function AppComponent() {
     }
   };
 
-  const handleAddBook = async () => {
-
-    const { newBookTitle, newBookAuthor, newBookISBN, newBookPages, newBookYear, newBookPrice } = extractInputValue();
-
-    const newBook: Book = {
-      titulo: newBookTitle.value,
-      autor: newBookAuthor.value,
-      isbn: newBookISBN.value,
-      paginas: parseInt(newBookPages.value),
-      ano: parseInt(newBookYear.value),
-      valor: parseFloat(newBookPrice.value),
-    };
-
-    console.log(newBook);
-
-    await addBook(newBook);
-    fetchBooks();
-
-    clearInputs(newBookTitle, newBookAuthor, newBookISBN, newBookPages, newBookYear, newBookPrice);
-
-    setCurrentPage(1);
-  };
-
-  const handleDeleteBook = async (id: string) => {
-    deleteBook(id);
-    fetchBooks();
-  };
-
 
 
   return (
@@ -90,16 +61,6 @@ function AppComponent() {
       <div className="top-section">
         <label htmlFor="itemsPerPage">Itens por Página: </label>
         <input type="number" id="itemsPerPage" min="1" onChange={handleItemsPerPageChange} />
-      </div>
-
-      <div className="add-book-container">
-        <button onClick={handleAddBook}>Adicionar Livro</button>
-        <input type="text" id="newBookTitle" placeholder="Título do Livro" />
-        <input type="text" id="newBookAuthor" placeholder="Autor do Livro" />
-        <input type="text" id="newBookISBN" placeholder="ISBN do Livro" />
-        <input type="number" id="newBookPages" placeholder="Número de Páginas" />
-        <input type="number" id="newBookYear" placeholder="Ano de Publicação" />
-        <input type="number" id="newBookPrice" placeholder="Preço do Livro" />
       </div>
 
       {loading ? (
@@ -161,23 +122,4 @@ function AppComponent() {
 }
 
 export default AppComponent;
-
-function extractInputValue() {
-  const newBookTitle = document.getElementById('newBookTitle') as HTMLInputElement;
-  const newBookAuthor = document.getElementById('newBookAuthor') as HTMLInputElement;
-  const newBookISBN = document.getElementById('newBookISBN') as HTMLInputElement;
-  const newBookPages = document.getElementById('newBookPages') as HTMLInputElement;
-  const newBookYear = document.getElementById('newBookYear') as HTMLInputElement;
-  const newBookPrice = document.getElementById('newBookPrice') as HTMLInputElement;
-  return { newBookTitle, newBookAuthor, newBookISBN, newBookPages, newBookYear, newBookPrice };
-}
-
-function clearInputs(newBookTitle: HTMLInputElement, newBookAuthor: HTMLInputElement, newBookISBN: HTMLInputElement, newBookPages: HTMLInputElement, newBookYear: HTMLInputElement, newBookPrice: HTMLInputElement) {
-  newBookTitle.value = '';
-  newBookAuthor.value = '';
-  newBookISBN.value = '';
-  newBookPages.value = '';
-  newBookYear.value = '';
-  newBookPrice.value = '';
-}
 
