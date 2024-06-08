@@ -23,7 +23,7 @@ const BOOKS_MAPPING = '/books';
 
 // Rota para retornar livros paginados
 app.get(BOOKS_MAPPING, async (req, res) => {
-  const pageSize = parseInt(req.query.pageSize) || 2; // Quantidade de livros por página
+  const pageSize = parseInt(req.query.pageSize) || 10; // Quantidade de livros por página
   const page = parseInt(req.query.page) || 1;
   const start = (page - 1) * pageSize;
   const end = start + pageSize;

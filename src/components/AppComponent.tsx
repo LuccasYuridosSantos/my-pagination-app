@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './AppComponent.css';
 import BooksResponse from '../models/BooksResponse';
-import { addBook, deleteBook, getBooks } from '../services/bookService';
+import { getBooks } from '../services/bookService';
 
 function AppComponent() {
   const [books, setBooks] = useState<BooksResponse>({ books: [], perPage: 0, currentPage: 0, hasNextPage: false, totalPages: 0, totalItems: 0 });
@@ -9,6 +9,10 @@ function AppComponent() {
   const [totalPages, setTotalPages] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState<number | undefined>();
   const [loading, setLoading] = useState(false);
+  const [start, setStart] = useState(0);
+  const [end, setEnd] = useState(0)
+  const [total, setTotal] = useState(0)
+
 
   useEffect(() => {
     fetchBooks();
@@ -20,6 +24,9 @@ function AppComponent() {
       .then(data => {
         setBooks(data);
         setTotalPages(data.totalPages);
+        setStart(data.currentPage * data.perPage - data.perPage + 1)
+        setEnd(data.currentPage * data.perPage)
+        setTotal(data.totalItems)
       })
       .catch(error => console.error('Error fetching books:', error))
       .finally(() => setLoading(false));
@@ -98,10 +105,13 @@ function AppComponent() {
             </tbody>
           </table>
 
+          <div className="descricaoPag">
+            <h3>Exibindo de { start } até { end } de {total} livros </h3>
+          </div>
+
           <div className="pagination">
-            {currentPage > 5 && <button onClick={() => handlePageClick(1)}>{"<<"}</button>}
-            {currentPage > 1 && <button onClick={handlePrevPage}>{"<"}</button>}
-            {currentPage > 5 && <button>{"..."}</button>}
+            <button disabled={currentPage <= 1} onClick={() => handlePageClick(1)}>{"<<"}</button>
+            <button disabled={currentPage <= 1} onClick={handlePrevPage}>{"<"}</button>
             {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => {
               if (page === currentPage) {
                 return <button key={page} onClick={() => handlePageClick(page)} className="selected" style={{ border: '1px solid gray', backgroundColor: 'gray' }}>{page}</button>;
@@ -110,9 +120,8 @@ function AppComponent() {
               }
               return null;
             })}
-            {currentPage < totalPages - 3 && <button>{"..."}</button>}
-            {currentPage < totalPages && <button onClick={handleNextPage}>{">"}</button>}
-            {currentPage < totalPages - 3 && <button onClick={() => handlePageClick(totalPages)}>{">>"}</button>}
+            <button disabled={currentPage >= totalPages} onClick={handleNextPage}>{">"}</button>
+            <button disabled={currentPage >= totalPages - 3} onClick={() => handlePageClick(totalPages)}>{">>"}</button>
             <br />
           </div>
         </>
