@@ -1,11 +1,11 @@
 interface Book {
-    id?: number;
-    title: string;
-    author: string;
+    _id?: string;
+    titulo: string;
+    autor: string;
     isbn: string;
-    pages: number;
-    year: number;
-    price: number;
+    paginas: number;
+    ano: number;
+    valor: number;
   }
   
   export default Book;

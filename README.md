@@ -1,3 +1,26 @@
+
+# Preparando Banco
+
+1- Caso não possua o mongodb instalado, pode se utilizar docker para gerar uma instância:
+
+ **Run Docker Compose:**  
+ ```bash
+ docker compose up
+ ```
+
+2 - Execute Script Python para inserir dados no banco:
+
+**Instale as dependecias do Python:**  
+```bash
+pip install -r requirements.txt
+```
+
+**Rode script python:**  
+```bash
+python insere_produtos.py
+```
+
+
 # Como Executar:
 
 1. **Instale as Dependências:**  
@@ -17,6 +40,8 @@
    ```bash 
    npm run dev
    ```
+
+
 
 # React + TypeScript + Vite
 

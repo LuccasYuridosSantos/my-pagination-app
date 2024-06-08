@@ -22,7 +22,7 @@ async function addBook(newBook: Book): Promise<void> {
   }
 }
 
-async function deleteBook(id: number): Promise<void> {
+async function deleteBook(id: string): Promise<void> {
   try {
     await axios.delete(`http://localhost:3001/books/${id}`);
   } catch (error) {

@@ -56,12 +56,12 @@ function AppComponent() {
     const { newBookTitle, newBookAuthor, newBookISBN, newBookPages, newBookYear, newBookPrice } = extractInputValue();
 
     const newBook: Book = {
-      title: newBookTitle.value,
-      author: newBookAuthor.value,
+      titulo: newBookTitle.value,
+      autor: newBookAuthor.value,
       isbn: newBookISBN.value,
-      pages: parseInt(newBookPages.value),
-      year: parseInt(newBookYear.value),
-      price: parseFloat(newBookPrice.value),
+      paginas: parseInt(newBookPages.value),
+      ano: parseInt(newBookYear.value),
+      valor: parseFloat(newBookPrice.value),
     };
 
     console.log(newBook);
@@ -74,7 +74,7 @@ function AppComponent() {
     setCurrentPage(1);
   };
 
-  const handleDeleteBook = async (id: number) => {
+  const handleDeleteBook = async (id: string) => {
     deleteBook(id);
     fetchBooks();
   };
@@ -115,22 +115,18 @@ function AppComponent() {
                 <th>Páginas</th>
                 <th>Ano</th>
                 <th>Valor</th>
-                <th>Ações</th>
               </tr>
             </thead>
             <tbody>
               {books.books && books.books.length > 0 ? (
                 books.books.map(book => (
-                  <tr key={book.id}>
-                    <td>{book.title ? book.title : '-'}</td>
-                    <td>{book.author ? book.author : '-'}</td>
+                  <tr key={book._id}>
+                    <td>{book.titulo ? book.titulo : '-'}</td>
+                    <td>{book.autor ? book.autor : '-'}</td>
                     <td>{book.isbn ? book.isbn : '-'}</td>
-                    <td>{book.pages ? book.pages : '-'}</td>
-                    <td>{book.year ? book.year : '-'}</td>
-                    <td> R$ {book.price ? book.price.toFixed(2) : '0'}</td>
-                    <td>
-                      <button onClick={() => handleDeleteBook(book.id ?? 0)}>Excluir</button>
-                    </td>
+                    <td>{book.paginas ? book.paginas : '-'}</td>
+                    <td>{book.ano ? book.ano : '-'}</td>
+                    <td> R$ {book.valor ? book.valor.toFixed(2) : '0'}</td>
                   </tr>
                 ))
               ) : (
