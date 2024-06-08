@@ -106,7 +106,7 @@ function AppComponent() {
           </table>
 
           <div className="descricaoPag">
-            <h3>Exibindo de { start } até { end } de {total} livros </h3>
+            <h3>Exibindo de { start } até { end >= total? total: end } de {total} livros </h3>
           </div>
 
           <div className="pagination">
